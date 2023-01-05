@@ -1,5 +1,5 @@
 import "./App.css";
-import { Button, Card, FormControl, Row, Container, InputGroup } from "react-bootstrap";
+import { Button, Card, FormControl, Row, Container, InputGroup, Dropdown } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState, useEffect } from "react";
 
@@ -66,12 +66,14 @@ function App() {
   }
   console.log(albums);
 
-  const e = <h1> Welcome to my Spotify search app</h1>;
+  const e = <h1> Welcome to my Spotify Search App</h1>;
+
+  const a = <p> What are you listening to?</p>;
 
   return (
     <div className="App">
       <header className="App-header">
-        <Card>{e}</Card>
+        {e}
         <Container>
           <InputGroup className="mb-2" size="lg">
             <FormControl
