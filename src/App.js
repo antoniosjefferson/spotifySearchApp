@@ -1,7 +1,8 @@
 import "./App.css";
-import { Button, Card, FormControl, Row, Container, InputGroup, Dropdown } from "react-bootstrap";
+import { Button, Card, FormControl, Row, Container, InputGroup } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState, useEffect } from "react";
+import moment from "moment";
 
 // NOTE: ADD DOTENV BELOW BEFORE PUSHING!
 
@@ -32,7 +33,8 @@ function App() {
   // Search. Function will have multiple fetch statements. We want each statement to wait its turn. To use await you must use async.
 
   async function search() {
-    console.log("Search for " + searchInput); // testing input
+    // console.log("Search for " + searchInput); // testing input
+
     // Get request using search to get Artist ID
     var searchParameters = {
       method: "GET",
@@ -46,7 +48,7 @@ function App() {
       .then((data) => {
         return data.artists.items[0].id;
       });
-    console.log("Artist ID is " + artistID);
+    // console.log("Artist ID is " + artistID);
 
     // Get request with Artist ID grab all albums from that artist
 
@@ -64,11 +66,15 @@ function App() {
 
     // Display those albums to the user
   }
-  console.log(albums);
+  // console.log(albums);
 
-  const e = <h1> Welcome to my Spotify Search App</h1>;
+  // Date conversion example
+  let date_string = "01-01-2001";
+  let output = new Date(date_string);
 
-  const a = <p> What are you listening to?</p>;
+  console.log(output.toString());
+
+  const e = <h1> Welcome to Spotify Search App</h1>;
 
   return (
     <div className="App">
@@ -92,16 +98,17 @@ function App() {
             </Button>
           </InputGroup>
         </Container>
-
         <Container>
           <Row className="mx-2 row row-cols-4">
             {albums.map((album, i) => {
-              console.log(album);
+              const date = new Date(album.release_date);
+              console.log(date);
+
               return (
-                <Card key={album.id}>
+                <Card className="cardImage" key={album.id}>
                   <Card.Img imagesvariant="top" src={album.images[0].url} />
                   <Card.Body>
-                    <Card.Title className="text-success">{album.release_date}</Card.Title>
+                    <Card.Title className="text-success"> Released on {album.release_date}</Card.Title>
                     <Card.Text className="text-success">{album.artists[0].name}</Card.Text>
                   </Card.Body>
                   <Card.Footer>
