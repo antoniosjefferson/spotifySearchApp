@@ -12,6 +12,7 @@ function App() {
   const [searchInput, setSearchInput] = useState(""); // takes search input and setSearchInput changes it.
   const [accessToken, setAccessToken] = useState(""); // used to store access token from spotify api request. First fetch
   const [albums, setAlbums] = useState([]); // used to store data from 2nd fetch request (returnedAlbums)
+  const [tracks, setTracks] = useState([]); // used to store data from 3rd fetch request (returnedTracks)
 
   // Note: Good for having function run once. Setup for API call ONCE! Dont want to reconnect to API and make calls every time it's refreshed.
 
@@ -35,14 +36,14 @@ function App() {
     // console.log("Search for " + searchInput); // testing input
 
     // Get request using search to get Artist ID
-    var searchParameters = {
+    let searchParameters = {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + accessToken,
       },
     };
-    var artistID = await fetch("https://api.spotify.com/v1/search?q=" + searchInput + "&type=artist", searchParameters)
+    let artistID = await fetch("https://api.spotify.com/v1/search?q=" + searchInput + "&type=artist", searchParameters)
       .then((response) => response.json())
       .then((data) => {
         return data.artists.items[0].id;
@@ -51,7 +52,7 @@ function App() {
 
     // Get request with Artist ID grab all albums from that artist
 
-    var returnedAlbums = await fetch(
+    let returnedAlbums = await fetch(
       "https://api.spotify.com/v1/artists/" + artistID + "/albums?include_groups=album&market=US&limit=50",
       searchParameters
     )
@@ -61,11 +62,12 @@ function App() {
         setAlbums(data.items);
       });
 
-    // var returnedSongs = await fetch("https://api.spotify.com/v1/artists/", searchParameters);
+    // let returnedSongs = await fetch("https://api.spotify.com/v1/artists/", searchParameters);
 
     // Display those albums to the user
   }
   const e = <h1> Welcome to Spotify Search App</h1>;
+  console.log(albums);
 
   return (
     <div className="App">
