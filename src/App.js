@@ -2,7 +2,6 @@ import "./App.css";
 import { Button, Card, FormControl, Row, Container, InputGroup } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState, useEffect } from "react";
-import moment from "moment";
 
 // NOTE: ADD DOTENV BELOW BEFORE PUSHING!
 
@@ -66,14 +65,6 @@ function App() {
 
     // Display those albums to the user
   }
-  // console.log(albums);
-
-  // Date conversion example
-  let date_string = "01-01-2001";
-  let output = new Date(date_string);
-
-  console.log(output.toString());
-
   const e = <h1> Welcome to Spotify Search App</h1>;
 
   return (
@@ -101,14 +92,10 @@ function App() {
         <Container>
           <Row className="mx-2 row row-cols-4">
             {albums.map((album, i) => {
-              const date = new Date(album.release_date);
-              console.log(date);
-
               return (
                 <Card className="cardImage" key={album.id}>
                   <Card.Img imagesvariant="top" src={album.images[0].url} />
                   <Card.Body>
-                    <Card.Title className="text-success"> Released on {album.release_date}</Card.Title>
                     <Card.Text className="text-success">{album.artists[0].name}</Card.Text>
                   </Card.Body>
                   <Card.Footer>
