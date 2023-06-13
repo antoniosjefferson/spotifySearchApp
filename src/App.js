@@ -43,6 +43,7 @@ function App() {
         Authorization: "Bearer " + accessToken,
       },
     };
+
     let artistID = await fetch("https://api.spotify.com/v1/search?q=" + searchInput + "&type=artist", searchParameters)
       .then((response) => response.json())
       .then((data) => {
@@ -62,6 +63,7 @@ function App() {
         setAlbums(data.items);
       });
 
+    console.log(returnedAlbums);
     // let returnedSongs = await fetch("https://api.spotify.com/v1/artists/", searchParameters);
 
     // Display those albums to the user
@@ -72,6 +74,9 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+        <button>
+          <h3>Home</h3>
+        </button>
         {e}
         <Container>
           <InputGroup className="mb-2" size="lg">
